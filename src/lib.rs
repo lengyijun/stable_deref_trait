@@ -16,8 +16,14 @@ no_std support can be enabled by disabling default features (specifically "std")
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(feature = "std")]
-extern crate core;
+#![no_std]
+use std::prelude::v1::*;
+#[macro_use]
+extern crate sgx_tstd as std;
+extern crate sgx_libc as libc;
+
+//#[cfg(feature = "std")]
+//extern crate core;
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
@@ -148,7 +154,7 @@ use std::ffi::{CString, OsString};
 #[cfg(feature = "std")]
 use std::path::PathBuf;
 #[cfg(feature = "std")]
-use std::sync::{MutexGuard, RwLockReadGuard, RwLockWriteGuard};
+use std::sync::{SgxMutexGuard as MutexGuard, SgxRwLockReadGuard as RwLockReadGuard, SgxRwLockWriteGuard as RwLockWriteGuard};
 
 use core::cell::{Ref, RefMut};
 
